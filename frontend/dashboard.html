@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ResumeAI Pro — Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body class="app-page">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="nav-logo">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    </div>
+    <span>ResumeAI <strong>Pro</strong></span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <button class="nav-item active" onclick="showSection('builder')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Resume Builder
+    </button>
+    <button class="nav-item" onclick="showSection('reviewer')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Resume Reviewer
+    </button>
+    <button class="nav-item" onclick="showSection('portfolio')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      Portfolio Builder
+    </button>
+    <div class="nav-section-label">Account</div>
+    <button class="nav-item" onclick="showSection('history')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      History
+    </button>
+    <button class="nav-item" onclick="showSection('settings')">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </button>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="userAvatar">RK</div>
+    <div class="user-info">
+      <strong id="userName">User</strong>
+      <span>Free Plan</span>
+    </div>
+    <button class="logout-btn" onclick="logout()" title="Logout">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="search-bar-wrap">
+      <div class="search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="globalSearch" placeholder="Search templates, actions…" oninput="handleSearch(this.value)"/>
+        <kbd>⌘K</kbd>
+      </div>
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </div>
+    <div class="topbar-right">
+      <button class="notif-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="user-avatar sm" id="topUserAvatar">RK</div>
+    </div>
+  </header>
+
+  <!-- ========== BUILDER SECTION ========== -->
+  <section class="section active" id="builderSection">
+    <div class="section-header">
+      <div>
+        <h2>Resume Builder</h2>
+        <p>Create a professional resume from scratch or improve your existing one with AI</p>
+      </div>
+    </div>
+
+    <!-- Mode Selector -->
+    <div class="mode-selector" id="modeSelector">
+      <div class="mode-card selected" id="modeCardBuild" onclick="selectBuilderMode('build')">
+        <div class="mode-card-icon blue">📝</div>
+        <div>
+          <h3>Build from Scratch <span class="mode-badge">Recommended</span></h3>
+          <p>Enter your details step-by-step. AI will craft a polished, ATS-optimized resume tailored to your target role.</p>
+        </div>
+      </div>
+      <div class="mode-card" id="modeCardUpload" onclick="selectBuilderMode('upload')">
+        <div class="mode-card-icon green">📄</div>
+        <div>
+          <h3>Improve Existing Resume</h3>
+          <p>Upload your current resume. AI will analyse it, suggest improvements, fix weaknesses and enhance it for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUILD MODE -->
+    <div class="build-mode-panel active" id="buildModePanel">
+      <!-- Job Target + Instruction -->
+      <div class="job-target-bar">
+        <span>🎯 Target Role</span>
+        <input type="text" id="jobTarget" placeholder="e.g. Full Stack Developer at Infosys, Data Analyst at Google…"/>
+        <button class="btn-primary sm" onclick="setJobTarget()">Set</button>
+      </div>
+      <div class="instruction-bar">
+        <span>💡 AI Instructions</span>
+        <input type="text" id="aiInstruction" placeholder="e.g. Keep it 1 page, focus on leadership, use strong action verbs…"/>
+        <button class="btn-secondary sm" onclick="applyInstruction()">Apply</button>
+      </div>
+
+      <div class="builder-layout">
+        <!-- Form Panel -->
+        <div class="form-panel">
+          <div class="panel-header">
+            <h3>Your Information</h3>
+            <p>Fill in your details — AI will generate a polished resume</p>
+          </div>
+          <div class="form-tabs">
+            <button class="ftab active" onclick="switchFormTab(this,'personal')">Personal</button>
+            <button class="ftab" onclick="switchFormTab(this,'experience')">Experience</button>
+            <button class="ftab" onclick="switchFormTab(this,'education')">Education</button>
+            <button class="ftab" onclick="switchFormTab(this,'skills')">Skills</button>
+            <button class="ftab" onclick="switchFormTab(this,'projects')">Projects</button>
+          </div>
+
+          <!-- Personal -->
+          <div class="ftab-content active" id="personalTab">
+            <div class="form-grid">
+              <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" placeholder="Ravi Kumar"/></div>
+              <div class="form-group"><label>Job Title</label><input type="text" id="jobTitle" placeholder="Full Stack Developer"/></div>
+              <div class="form-group"><label>Email *</label><input type="email" id="email" placeholder="ravi@example.com"/></div>
+              <div class="form-group"><label>Phone</label><input type="text" id="phone" placeholder="+91 98765 43210"/></div>
+              <div class="form-group"><label>Location</label><input type="text" id="location" placeholder="Hyderabad, Telangana"/></div>
+              <div class="form-group"><label>LinkedIn</label><input type="text" id="linkedin" placeholder="linkedin.com/in/ravikumar"/></div>
+              <div class="form-group"><label>GitHub / Portfolio</label><input type="text" id="github" placeholder="github.com/ravikumar"/></div>
+              <div class="form-group"><label>Website</label><input type="text" id="website" placeholder="ravikumar.dev"/></div>
+            </div>
+            <div class="form-group full-width">
+              <label>Professional Summary (or let AI generate)</label>
+              <textarea id="summary" rows="3" placeholder="Brief overview of your experience and goals…"></textarea>
+              <button class="ai-enhance-btn" onclick="generateSummary()">✨ Generate with AI</button>
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div class="ftab-content" id="experienceTab">
+            <div id="experienceList"></div>
+            <button class="btn-add" onclick="addExperience()">+ Add Experience</button>
+          </div>
+
+          <!-- Education -->
+          <div class="ftab-content" id="educationTab">
+            <div id="educationList"></div>
+            <button class="btn-add" onclick="addEducation()">+ Add Education</button>
+          </div>
+
+          <!-- Skills -->
+          <div class="ftab-content" id="skillsTab">
+            <div class="form-group">
+              <label>Technical Skills</label>
+              <div class="tag-input-wrap">
+                <div class="tag-container" id="techSkillTags"></div>
+                <input type="text" id="techSkillInput" placeholder="Type skill and press Enter" onkeydown="addTag(event,'techSkillTags','techSkillInput')"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Soft Skills</label>
+              <div class="tag-input-wrap">
+                <div class="tag-container" id="softSkillTags"></div>
+                <input type="text" id="softSkillInput" placeholder="e.g. Leadership, Communication" onkeydown="addTag(event,'softSkillTags','softSkillInput')"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Languages</label>
+              <div class="tag-input-wrap">
+                <div class="tag-container" id="langTags"></div>
+                <input type="text" id="langInput" placeholder="e.g. English, Telugu" onkeydown="addTag(event,'langTags','langInput')"/>
+              </div>
+            </div>
+            <button class="ai-enhance-btn" onclick="suggestSkills()">✨ AI Suggest Skills for my Target Role</button>
+          </div>
+
+          <!-- Projects -->
+          <div class="ftab-content" id="projectsTab">
+            <div id="projectsList"></div>
+            <button class="btn-add" onclick="addProject()">+ Add Project</button>
+          </div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+          <div class="preview-toolbar">
+            <div class="preview-toolbar-left">
+              <span class="preview-label">Live Preview</span>
+              <div class="template-select-group">
+                <label>Template</label>
+                <select class="template-select" onchange="changeTemplate(this.value)">
+                  <option value="classic">Classic</option>
+                  <option value="modern">Modern</option>
+                  <option value="executive">Executive</option>
+                  <option value="creative">Creative</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-accent" onclick="generateDocument()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Create Resume
+            </button>
+          </div>
+          <div class="preview-container" id="resumePreview">
+            <div class="preview-placeholder">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" style="opacity:0.25"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <p>Fill in your details and click<br/><strong style="color:var(--primary)">Create Resume</strong></p>
+              <button class="btn-secondary sm" onclick="loadSampleData()" style="margin-top:6px">Load Sample Data</button>
+            </div>
+          </div>
+          <div class="preview-footer">
+            <div class="ai-edit-row">
+              <input type="text" id="editInstruction" placeholder="Edit with AI: e.g. 'Make bullets more impactful', 'Add quantified results'"/>
+              <button class="btn-accent sm" onclick="applyAIEdit()">✨ Edit</button>
+            </div>
+            <div class="download-row" id="downloadRow" style="display:none">
+              <button class="btn-download-pdf" onclick="downloadAs('pdf')">⬇ PDF</button>
+              <button class="btn-download-docx" onclick="downloadAs('docx')">⬇ DOCX</button>
+              <button class="btn-download-txt" onclick="downloadAs('txt')">⬇ TXT</button>
+              <button class="share-btn" onclick="shareResume()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                Share
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPLOAD MODE -->
+    <div class="upload-mode-panel" id="uploadModePanel">
+      <div class="upload-drop-zone" id="uploadDropZone" onclick="document.getElementById('resumeUploadFile').click()"
+        ondrop="handleUploadDrop(event)" ondragover="event.preventDefault()" ondragenter="uploadDropZone.classList.add('drag-over')" ondragleave="document.getElementById('uploadDropZone').classList.remove('drag-over')">
+        <div class="upload-drop-icon">📂</div>
+        <h3>Upload Your Existing Resume</h3>
+        <p>Drag & drop or click to browse your resume file</p>
+        <button class="btn-primary" style="pointer-events:none">Browse File</button>
+        <div class="upload-formats">
+          <span class="format-chip">PDF</span>
+          <span class="format-chip">DOC</span>
+          <span class="format-chip">DOCX</span>
+          <span class="format-chip">TXT</span>
+        </div>
+        <input type="file" id="resumeUploadFile" accept=".pdf,.doc,.docx,.txt" style="display:none" onchange="handleResumeUpload(this)"/>
+      </div>
+
+      <!-- Analysis Results (hidden until upload) -->
+      <div class="analysis-panel" id="analysisPanel" style="display:none">
+        <div class="analysis-header">
+          <div>
+            <h3>AI Resume Analysis</h3>
+            <p id="analysisFileName">resume.pdf</p>
+          </div>
+          <div class="ats-score-badge">
+            <div class="score-val" id="atsScoreVal">--</div>
+            <div class="score-lbl">ATS Score</div>
+          </div>
+        </div>
+        <div class="analysis-body">
+          <div class="analysis-tabs">
+            <button class="atab active" onclick="switchAnalysisTab(this,'issues')">Issues Found</button>
+            <button class="atab" onclick="switchAnalysisTab(this,'suggestions')">Improvements</button>
+            <button class="atab" onclick="switchAnalysisTab(this,'skills')">Skills to Learn</button>
+            <button class="atab" onclick="switchAnalysisTab(this,'enhanced')">Enhanced Resume</button>
+          </div>
+          <div class="atab-content active" id="issuesContent"></div>
+          <div class="atab-content" id="suggestionsContent"></div>
+          <div class="atab-content" id="skillsContent"></div>
+          <div class="atab-content" id="enhancedContent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== REVIEWER SECTION ========== -->
+  <section class="section" id="reviewerSection">
+    <div class="section-header">
+      <div><h2>Resume Reviewer</h2><p>Deep AI analysis of your resume with actionable feedback and skill gap identification</p></div>
+    </div>
+    <div class="reviewer-two-col">
+      <div>
+        <div class="upload-drop-zone" id="reviewDropZone2" onclick="document.getElementById('reviewFile2').click()"
+          ondrop="handleReviewDrop(event)" ondragover="event.preventDefault()">
+          <div class="upload-drop-icon">🔍</div>
+          <h3>Upload Resume to Review</h3>
+          <p>Get instant AI feedback, ATS score, and a personalised skill roadmap</p>
+          <button class="btn-primary" style="pointer-events:none">Upload Resume</button>
+          <div class="upload-formats" style="margin-top:10px">
+            <span class="format-chip">PDF</span><span class="format-chip">DOCX</span><span class="format-chip">TXT</span>
+          </div>
+          <input type="file" id="reviewFile2" accept=".pdf,.doc,.docx,.txt" style="display:none" onchange="handleReviewUpload2(this)"/>
+        </div>
+
+        <div style="margin-top:16px;background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;">
+          <h4 style="font-size:0.85rem;font-weight:700;margin-bottom:12px;color:var(--text)">Or specify target job for better analysis</h4>
+          <div class="form-group" style="margin-bottom:10px"><label>Target Role</label><input type="text" id="reviewTargetRole" placeholder="e.g. Data Scientist at Amazon"/></div>
+          <div class="form-group" style="margin-bottom:0"><label>Years of Experience</label><select id="reviewYOE"><option>0-1 years (Fresher)</option><option>1-3 years</option><option>3-5 years</option><option>5-10 years</option><option>10+ years</option></select></div>
+        </div>
+      </div>
+
+      <div id="reviewResults2" style="display:none">
+        <div class="analysis-panel">
+          <div class="analysis-header">
+            <div><h3>Review Complete</h3><p id="reviewFileName2">Your resume has been analysed</p></div>
+            <div class="ats-score-badge">
+              <div class="score-val" id="reviewAtsScore">--</div>
+              <div class="score-lbl">ATS Score</div>
+            </div>
+          </div>
+          <div class="analysis-body">
+            <div class="analysis-tabs">
+              <button class="atab active" onclick="switchReviewTab2(this,'r-issues')">Issues</button>
+              <button class="atab" onclick="switchReviewTab2(this,'r-suggest')">Suggestions</button>
+              <button class="atab" onclick="switchReviewTab2(this,'r-skills')">Skill Gaps</button>
+              <button class="atab" onclick="switchReviewTab2(this,'r-roadmap')">Learning Path</button>
+            </div>
+            <div class="atab-content active" id="r-issuesContent"></div>
+            <div class="atab-content" id="r-suggestContent"></div>
+            <div class="atab-content" id="r-skillsContent"></div>
+            <div class="atab-content" id="r-roadmapContent"></div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap">
+              <input type="text" id="reviewFixInstruction" placeholder="Ask AI to fix something specific…" style="flex:1;min-width:180px"/>
+              <button class="btn-accent sm" onclick="applyReviewFix()">✨ Apply Fix</button>
+              <button class="btn-primary sm" onclick="buildFromReview()">Build Improved Resume</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTFOLIO SECTION ========== -->
+  <section class="section" id="portfolioSection">
+    <div class="section-header">
+      <div><h2>Portfolio Builder</h2><p>Create a stunning online portfolio powered by AI</p></div>
+    </div>
+
+    <!-- Portfolio Mode -->
+    <div class="port-mode-selector">
+      <div class="mode-card selected" id="portModeCardBuild" onclick="selectPortfolioMode('build')">
+        <div class="mode-card-icon blue">🎨</div>
+        <div>
+          <h3>Build Portfolio</h3>
+          <p>Enter your details and let AI generate a beautiful portfolio website for you.</p>
+        </div>
+      </div>
+      <div class="mode-card" id="portModeCardUpload" onclick="selectPortfolioMode('upload')">
+        <div class="mode-card-icon green">📋</div>
+        <div>
+          <h3>Improve Existing Portfolio</h3>
+          <p>Describe your current portfolio and get AI suggestions to make it stand out.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-layout">
+      <!-- Form -->
+      <div class="form-panel">
+        <div class="panel-header"><h3>Portfolio Details</h3><p>Fill in your info and AI generates the portfolio</p></div>
+        <div style="padding:18px;overflow-y:auto;flex:1">
+          <div class="form-group"><label>Portfolio Title</label><input type="text" id="portTitle" placeholder="Ravi Kumar — Full Stack Developer"/></div>
+          <div class="form-group"><label>Tagline</label><input type="text" id="portTagline" placeholder="Building scalable apps that matter"/></div>
+          <div class="form-group"><label>About Me</label><textarea id="portAbout" rows="3" placeholder="Brief intro about yourself and your passion…"></textarea><button class="ai-enhance-btn" onclick="generatePortfolioAbout()">✨ AI Generate</button></div>
+          <div class="form-group">
+            <label>Portfolio Style</label>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px">
+              <div class="mode-card selected" id="styleCardMinimal" onclick="selectPortStyle(this,'minimal')" style="padding:12px;flex-direction:column;text-align:center;gap:6px">
+                <div style="width:100%;height:36px;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-radius:4px"></div>
+                <span style="font-size:0.76rem;font-weight:600">Minimal</span>
+              </div>
+              <div class="mode-card" id="styleCardCorporate" onclick="selectPortStyle(this,'corporate')" style="padding:12px;flex-direction:column;text-align:center;gap:6px">
+                <div style="width:100%;height:36px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);border-radius:4px"></div>
+                <span style="font-size:0.76rem;font-weight:600">Corporate</span>
+              </div>
+              <div class="mode-card" id="styleCardDark" onclick="selectPortStyle(this,'dark')" style="padding:12px;flex-direction:column;text-align:center;gap:6px">
+                <div style="width:100%;height:36px;background:linear-gradient(135deg,#0f172a,#334155);border-radius:4px"></div>
+                <span style="font-size:0.76rem;font-weight:600">Dark</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group"><label>Featured Projects</label><div id="portProjects"></div><button class="btn-add" onclick="addPortProject()">+ Add Project</button></div>
+          <div class="form-group"><label>AI Instructions</label><textarea id="portInstruction" rows="2" placeholder="e.g. Highlight React projects, include contact form, make it look premium…"></textarea></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn-accent" onclick="generatePortfolio()" style="flex:1;justify-content:center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Generate Portfolio
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-panel">
+        <div class="preview-toolbar">
+          <span class="preview-label">Portfolio Preview</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn-primary sm" onclick="downloadPortfolio('html')">⬇ Download HTML</button>
+            <button class="btn-download-pdf" onclick="downloadPortfolio('pdf')">⬇ PDF</button>
+          </div>
+        </div>
+        <div class="port-preview-container" id="portfolioPreview">
+          <div class="preview-placeholder">
+            <span style="font-size:2.5rem">🎨</span>
+            <p>Fill in your details and click<br/><strong style="color:var(--primary)">Generate Portfolio</strong></p>
+          </div>
+        </div>
+        <div class="preview-footer">
+          <div class="ai-edit-row">
+            <input type="text" id="portEditInstruction" placeholder="Edit with AI: e.g. 'Add testimonials section', 'Make hero bolder'"/>
+            <button class="btn-accent sm" onclick="applyPortfolioEdit()">✨ Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HISTORY SECTION ========== -->
+  <section class="section" id="historySection">
+    <div class="section-header">
+      <div><h2>Document History</h2><p>All your saved resumes and portfolios</p></div>
+      <div class="header-actions">
+        <input type="text" placeholder="Search…" style="width:200px;font-size:0.82rem" oninput="searchHistory(this.value)"/>
+      </div>
+    </div>
+    <div class="history-filters">
+      <button class="filter-btn active" onclick="filterHistory(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterHistory(this,'Resume')">Resumes</button>
+      <button class="filter-btn" onclick="filterHistory(this,'Portfolio')">Portfolios</button>
+    </div>
+    <div class="history-grid" id="historyGrid"></div>
+  </section>
+
+  <!-- ========== SETTINGS SECTION ========== -->
+  <section class="section" id="settingsSection">
+    <div class="section-header"><div><h2>Settings</h2><p>Manage your account and preferences</p></div></div>
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3>Profile Information</h3>
+        <div class="form-group"><label>Full Name</label><input type="text" id="settingName"/></div>
+        <div class="form-group"><label>Email</label><input type="email" id="settingEmail"/></div>
+        <div class="form-group"><label>Current Role</label><input type="text" id="settingRole" placeholder="Software Engineer"/></div>
+        <div class="form-group"><label>Location</label><input type="text" id="settingLoc" placeholder="Hyderabad, India"/></div>
+        <button class="btn-primary sm" onclick="saveSettings()">Save Changes</button>
+      </div>
+      <div class="settings-card">
+        <h3>AI Preferences</h3>
+        <div class="settings-toggle-item">
+          <div><strong>ATS Optimization</strong><span>Auto-optimize for ATS scanners</span></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="settings-toggle-item">
+          <div><strong>Skill Suggestions</strong><span>AI suggests relevant skills</span></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="settings-toggle-item">
+          <div><strong>Real-time Preview</strong><span>Update preview as you type</span></div>
+          <label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="settings-toggle-item">
+          <div><strong>Email Notifications</strong><span>Get tips and job market updates</span></div>
+          <label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+      <div class="settings-card danger-card">
+        <h3>Danger Zone</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn-danger-soft" onclick="clearAllData()">Clear All Data</button>
+          <button class="btn-danger-soft" onclick="deleteAccount()">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- AI Loading -->
+<div class="ai-loading" id="aiLoading">
+  <div class="ai-loading-box">
+    <div class="ai-spinner-wrap">
+      <div class="ai-spinner"></div>
+      <div class="ai-spinner-inner">✦</div>
+    </div>
+    <h3>AI is working…</h3>
+    <p id="aiLoadingText">Crafting your resume</p>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="loading-steps" id="loadingSteps"></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="app.js"></script>
+<script src="ai-engine.js"></script>
+<script src="templates.js"></script>
+<script src="download.js"></script>
+</body>
+</html>
